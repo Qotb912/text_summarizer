@@ -23,12 +23,16 @@ def read_yaml(path_to_ymal:Path)->ConfigBox:
             ConfigBox: ConfigBox type object    
     """
     try:
+        print(path_to_ymal)
         with open(path_to_ymal) as f:
             content = yaml.safe_load(f)
             logger.info(f"yaml fole: {path_to_ymal} lodded successfully")
             return ConfigBox(content)
     except BoxValueError as e:
         raise ValueError("yaml file is empty")
+       
+    except yaml.YAMLError as exc:
+        print(exc)
     except Exception as e:
         raise e
 
