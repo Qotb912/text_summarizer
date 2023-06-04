@@ -9,6 +9,7 @@ from typing import Any
 
 @ensure_annotations
 def read_yaml(path_to_ymal:Path)->ConfigBox:
+    # return ConfigBox()
     """
         reads yaml file and returns
 
@@ -23,11 +24,21 @@ def read_yaml(path_to_ymal:Path)->ConfigBox:
             ConfigBox: ConfigBox type object    
     """
     try:
-        print(path_to_ymal)
-        with open(path_to_ymal) as f:
-            content = yaml.safe_load(f)
-            logger.info(f"yaml fole: {path_to_ymal} lodded successfully")
+       with open(path_to_ymal) as yaml_file:
+            content = yaml.safe_load(yaml_file)
+            print(content)
+            print(type(content))
+            print(ConfigBox(content))
+            print(type(ConfigBox(content)))
+            logger.info(f"yaml file: {path_to_ymal} loaded successfully")
             return ConfigBox(content)
+      
+        # print("IN READ YAML FUN",path_to_ymal)
+        # with open(path_to_ymal) as f:
+        #     content = yaml.safe_load(f)
+        # logger.info(f"yaml fole: {path_to_ymal} lodded successfully")
+        # print(ConfigBox(content) )
+        # return ConfigBox(content)
     except BoxValueError as e:
         raise ValueError("yaml file is empty")
        
