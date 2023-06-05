@@ -1,6 +1,6 @@
 from text_summarizer.constants import *
 from text_summarizer.utils.comon import read_yaml, create_directories
-from text_summarizer.entity import DataIngestionConfig , DataValidationConfig
+from text_summarizer.entity import DataIngestionConfig, DataTransformationConfig , DataValidationConfig
 
 
 class ConfigurationManager:
@@ -27,7 +27,7 @@ class ConfigurationManager:
             unzip_dir = PROJECT_DIR.joinpath( config.unzip_dir)
         )
         return data_ingestion_config
-    def get_data_validation(self) -> DataValidationConfig:
+    def get_data_validation_config(self) -> DataValidationConfig:
         config = self.config.data_validation
         create_directories([PROJECT_DIR.joinpath(config.root_dir)])
         data_validation_config = DataValidationConfig(
@@ -37,3 +37,13 @@ class ConfigurationManager:
         )
         return data_validation_config
     
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+        create_directories([PROJECT_DIR.joinpath( config.root_dir)])
+        print(type(config))
+        data_transformation_config = DataTransformationConfig(
+            root_dir= PROJECT_DIR.joinpath(config.root_dir),
+            data_path= PROJECT_DIR.joinpath(config.data_path),
+            tokenizer_name= config.tokenizer_name
+        )
+        return data_transformation_config
