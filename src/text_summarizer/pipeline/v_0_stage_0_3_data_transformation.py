@@ -7,10 +7,8 @@ class DataTransormationTrainingPipeline:
         pass
 
     def main(self):
-       try:
-            config = ConfigurationManager()
-            data_transformation_config = config.get_data_transformation_config()
-            data_transformation = DataTransformation(config=data_transformation_config)
-            data_transformation.convert()
-       except Exception as e:
-           raise e
+        config = ConfigurationManager()
+        data_transformation_config = config.get_data_transformation_config()
+        data_transformation = DataTransformation(config=data_transformation_config)
+        data_transformation.convert()
+       

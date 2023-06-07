@@ -2,6 +2,7 @@ from text_summarizer.logging import logger
 from text_summarizer.pipeline.v_0_stage_0_1_data_ingestion import DataIngestionTrainingPipeline
 from text_summarizer.pipeline.v_0_stage_0_2_data_validation import DataValidationTrainingPipeline
 from text_summarizer.pipeline.v_0_stage_0_3_data_transformation import DataTransormationTrainingPipeline
+from text_summarizer.pipeline.v_0_stage_0_4_model_trainer import ModelTrainTrainingPipeline
 
 
 
@@ -44,3 +45,18 @@ try:
 except Exception as e:
     logger.exception(e)
     raise e
+
+
+
+
+STAGE_NAME = "Model Trainer"
+try:
+    logger.info(f"-------------- VERSION {VERSION}  ------------------")
+    logger.info(f"************** STAGE {STAGE_NAME}  ******************")
+    model_trainer = ModelTrainTrainingPipeline()
+    model_trainer.main()
+    logger.info(f"********* VERSION {VERSION} && STAGE {STAGE_NAME} && COMPLETED  **********")
+except Exception as e:
+    logger.exception(e)
+    raise e
+

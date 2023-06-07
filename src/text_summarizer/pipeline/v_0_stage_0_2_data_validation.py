@@ -8,11 +8,9 @@ class DataValidationTrainingPipeline:
         pass
 
     def main(self):
-        try:
-            config = ConfigurationManager()
-            print(config)
-            data_validation_config = config.get_data_validation_config()
-            data_validation = DataValidation(config=data_validation_config)
-            data_validation.validate_all_files_exist()
-        except Exception as e:
-            raise e
+        config = ConfigurationManager()
+        print(config)
+        data_validation_config = config.get_data_validation_config()
+        data_validation = DataValidation(config=data_validation_config)
+        data_validation.validate_all_files_exist()
+        

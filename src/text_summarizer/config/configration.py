@@ -1,6 +1,7 @@
 from text_summarizer.constants import *
 from text_summarizer.utils.comon import read_yaml, create_directories
-from text_summarizer.entity import DataIngestionConfig, DataTransformationConfig , DataValidationConfig
+from text_summarizer.entity import (DataIngestionConfig, DataTransformationConfig ,
+                                    DataValidationConfig, ModelTrainerConfig )
 
 
 class ConfigurationManager:
@@ -11,9 +12,9 @@ class ConfigurationManager:
         
         self.config = read_yaml(config_file_path)
         self.params = read_yaml(params_file_path)
-       
-
+    
         create_directories([PROJECT_DIR.joinpath(self.config.artifacts_root)])
+
 
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
@@ -27,6 +28,8 @@ class ConfigurationManager:
             unzip_dir = PROJECT_DIR.joinpath( config.unzip_dir)
         )
         return data_ingestion_config
+    
+
     def get_data_validation_config(self) -> DataValidationConfig:
         config = self.config.data_validation
         create_directories([PROJECT_DIR.joinpath(config.root_dir)])
@@ -37,6 +40,7 @@ class ConfigurationManager:
         )
         return data_validation_config
     
+
     def get_data_transformation_config(self) -> DataTransformationConfig:
         config = self.config.data_transformation
         create_directories([PROJECT_DIR.joinpath( config.root_dir)])
@@ -47,3 +51,30 @@ class ConfigurationManager:
             tokenizer_name= config.tokenizer_name
         )
         return data_transformation_config
+
+
+def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        params = self.params.TrainingArguments
+
+
+        create_directories([PROJECT_DIR.joinpath(config.root_dir)])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir = config.root_dir,
+            data_path= config.data_path,
+            model_ckpt= config.model_ckpt,
+            num_train_epochs= int(params.num_train_epochs),
+            warmup_steps= int(params.warmup_steps),
+            per_device_train_batch_size= int(params.per_device_train_batch_size),
+            per_device_eval_batch_size = int(params.per_device_eval_batch_size),
+            weight_decay=  float(params.weight_decay),
+            logging_steps= int(params.logging_steps),
+            evaluation_strategy= params.evaluation_strategy,
+            eval_steps= int(params.eval_steps),
+            save_steps= int(params.save_steps),
+            gradient_accumlation_steps= int(params.gradient_accumlation_steps),
+            optim = params.optim,      
+        )
+        return model_trainer_config
+
