@@ -25,8 +25,8 @@ def read_yaml(path_to_ymal:Path)->ConfigBox:
     """
     try:
        with open(path_to_ymal) as yaml_file:
+            print(content)
             content = yaml.safe_load(yaml_file)
-            # print(content)
             # print(type(content))
             # print(ConfigBox(content))
             # print(type(ConfigBox(content)))

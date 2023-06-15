@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-PROJECT_DIR = Path("G:/currentProjects/AI/text_summarizer")
+PROJECT_DIR = Path("C:/Users/Mahmo/Desktop/text_summarizer")
 
 CONFIG_FILE_PATH = Path("config/config.yaml")
 PARAMS_FILE_PATH = Path("params.yaml")
